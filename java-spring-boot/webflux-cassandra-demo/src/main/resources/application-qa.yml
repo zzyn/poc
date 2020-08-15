@@ -1,0 +1,71 @@
+server:
+  port: 80
+
+management:
+  server:
+    port: 80
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: '*'
+    jmx:
+      exposure:
+        include: '*'
+  endpoint:
+    shutdown:
+      enabled: false
+  info:
+    defaults:
+      enabled: true
+    git:
+      mode: full
+
+spring:
+  main:
+    web-application-type: reactive
+  application:
+    name: 'plan-svc (qa)'
+  redis:
+    cluster:
+      nodes:
+      - 10.178.86.196:6379
+    database: 0
+    password: 'Efef@123!'
+    lettuce:
+      pool:
+        max-active: 10000
+        max-wait: 5000
+        max-idle: 30
+        min-idle: 5
+    timeout: 5000
+    app-ttl: 43200
+    app-enabled: true
+  data:
+    cassandra:
+      keyspace-name: 'learning_plan'
+      username: 'cassandra'
+      password: 'cassandra'
+      port: 9042
+      contact-points:
+        - 10.178.86.133
+      pool:
+        heartbeat-interval: 30s
+        idle-timeout: 120s
+        pool-timeout: 5000ms
+        max-queue-size: 256
+
+logging:
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36}.%M() @%L - %msg%n'
+    level: DEBUG
+  level:
+    root: DEBUG
+    org:
+      springframework:
+        web: DEBUG
+
+jwt:
+  private-key: 'keys/rsa/private_key.pem'
+  public-key: 'keys/rsa/public_key.pem'
+

@@ -1,0 +1,66 @@
+def pipelineParams = [:]
+pipelineParams.imageRepo = "qcloud/webflux-cassandra-demo"
+pipelineParams.ecrRegistry = "hub.tencentyun.com"
+
+pipeline {
+    options {
+        disableConcurrentBuilds()
+        timeout(time: 60, unit: 'MINUTES')
+        buildDiscarder(logRotator(numToKeepStr: '20'))
+    }
+    triggers {
+        pollSCM('')
+    }
+    agent any
+    parameters {
+        choice(name: 'BUILD_CAUSE', choices: ['commit', 'user'], description: 'Select [user] to start the pipeline even w/o any code change.')
+    }
+    environment {
+        GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim().take(7)
+        GIT_BRANCH = sh(returnStdout: true, script: 'git symbolic-ref --short HEAD').trim()
+    }
+    stages {
+        stage('Pre-Build') {
+            steps {
+                script {
+                    // set the build display name
+                    currentBuild.displayName = "#${BUILD_ID}-${GIT_COMMIT}"
+
+                    // calculate version from branch
+                    APP_VERSION = 'unexpected'
+                    if (GIT_BRANCH == 'develop')
+                        APP_VERSION = 'dev'
+                    else if (GIT_BRANCH.startsWith('release/'))
+                        APP_VERSION = GIT_BRANCH.replace('release/', '')
+                    else if (GIT_BRANCH.startsWith('feature/'))
+                        APP_VERSION = GIT_BRANCH.replace('feature/', 'feature_')
+                    else if (GIT_BRANCH == 'master')
+                        APP_VERSION = 'master'
+                }
+            }
+        }
+        stage('Docker-Build') {
+            steps {
+                echo "Workspace: ${WORKSPACE}"
+                sh "docker-compose build"
+            }
+        }
+        stage('Docker-Push') {
+            steps {
+                script {
+                    def tag1 = "${pipelineParams.ecrRegistry}/${pipelineParams.imageRepo}:${APP_VERSION}"
+                    def tag2 = "${pipelineParams.ecrRegistry}/${pipelineParams.imageRepo}:stg"
+                    sh """
+                        docker login --username=cd_user --password=123456 hub.tencentyun.com
+                        docker tag ${pipelineParams.imageRepo} $tag1
+                        docker push $tag1
+                        docker tag ${pipelineParams.imageRepo} $tag2
+                        docker push $tag2
+                        docker rmi $tag1
+                        docker rmi $tag2
+                       """
+                }
+            }
+        }
+    }
+}

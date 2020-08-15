@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  webflux-cassandra-demo:
+    image: qcloud/webflux-cassandra-demo
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+      network: host

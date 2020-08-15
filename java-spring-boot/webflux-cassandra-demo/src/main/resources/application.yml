@@ -1,0 +1,15 @@
+spring:
+  profiles:
+    active: qa
+
+info:
+  app:
+    name: "@project.name@"
+    description: "@project.description@"
+    version: "@project.version@"
+    spring-boot-version: "@project.parent.version@"
+    encoding: "@project.build.sourceEncoding@"
+    java:
+      source: "@java.version@"
+      target: "@java.version@"
+

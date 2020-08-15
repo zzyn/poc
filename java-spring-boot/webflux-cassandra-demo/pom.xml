@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.5.RELEASE</version>
+	</parent>
+	<groupId>com.ef.edtech.platform</groupId>
+	<artifactId>webflux-cassandra-demo</artifactId>
+	<version>1.0.0</version>
+	<name>webflux-cassandra-demo</name>
+	<description>Cassandra project for Spring Boot</description>
+
+	<properties>
+		<!-- encoding -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- jdk -->
+		<java.version>1.8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<!-- build -->
+		<fat.jar.name>webflux-cassandra-demo-${project.version}-fat</fat.jar.name>
+		<exec.mainClass>com.webflux.cassandra.demo.Application</exec.mainClass>
+		<!-- docker -->
+		<docker.image.prefix>${project.groupId}</docker.image.prefix>
+		<!-- testing -->
+		<junit.version>4.12</junit.version>
+		<mockito.version>2.22.0</mockito.version>
+		<!-- json -->
+		<com.fasterxml.jackson.core>2.9.6</com.fasterxml.jackson.core>
+		<!-- async logging -->
+		<com.lmax>3.3.6</com.lmax>
+		<!-- jwt -->
+		<io.jsonwebtoken>0.10.5</io.jsonwebtoken>
+		<org.bouncycastle>1.60</org.bouncycastle>
+		<!-- swagger api doc -->
+		<io.springfox>3.0.0</io.springfox>
+		<!-- common lang -->
+		<org.apache.commons.lang>3.8.1</org.apache.commons.lang>
+		<!-- plugins -->
+		<com.spotify>1.0.0</com.spotify>
+		<!-- Open Clover Coverage -->
+		<!-- These coverage properties need to be overwritten where applicable -->
+		<clover.target.line.percentage>0%</clover.target.line.percentage>
+		<clover.target.conditional.percentage>0%</clover.target.conditional.percentage>
+		<clover.version>4.3.1</clover.version>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+			<!-- swagger2 -->
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger2</artifactId>
+				<version>${io.springfox}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-swagger-ui</artifactId>
+				<version>${io.springfox}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.springfox</groupId>
+				<artifactId>springfox-spring-webflux</artifactId>
+				<version>${io.springfox}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.lmax</groupId>
+				<artifactId>disruptor</artifactId>
+				<version>${com.lmax}</version>
+			</dependency>
+			<!-- commons language -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-lang3</artifactId>
+				<version>${org.apache.commons.lang}</version>
+			</dependency>
+			<!-- json -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${com.fasterxml.jackson.core}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${com.fasterxml.jackson.core}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${com.fasterxml.jackson.core}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.datatype</groupId>
+				<artifactId>jackson-datatype-jsr310</artifactId>
+				<version>${com.fasterxml.jackson.core}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.joschi.jackson</groupId>
+				<artifactId>jackson-datatype-threetenbp</artifactId>
+				<version>${com.github.joschi.jackson}</version>
+			</dependency>
+			<!-- jwt -->
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-api</artifactId>
+				<version>${io.jsonwebtoken}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-impl</artifactId>
+				<version>${io.jsonwebtoken}</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt-jackson</artifactId>
+				<version>${io.jsonwebtoken}</version>
+				<scope>runtime</scope>
+			</dependency>
+			<!-- encrypt/decrypt pki -->
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk15on</artifactId>
+				<version>${org.bouncycastle}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcpkix-jdk15on</artifactId>
+				<version>${org.bouncycastle}</version>
+			</dependency>
+			<!-- test -->
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-core</artifactId>
+				<version>${mockito.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>${junit.version}</version>
+				<scope>test</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+		<!-- Log4j2 Support -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		<!-- Log4j2 Async Support -->
+		<dependency>
+			<groupId>com.lmax</groupId>
+			<artifactId>disruptor</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+		<!-- redis -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>redis.clients</groupId>
+					<artifactId>jedis</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis-reactive</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>redis.clients</groupId>
+					<artifactId>jedis</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!-- cassandra -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-cassandra-reactive</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- apache commons -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-pool2</artifactId>
+		</dependency>
+
+		<!-- swagger3 for webflux -->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-spring-webflux</artifactId>
+		</dependency>
+
+		<!-- json -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-jsr310</artifactId>
+		</dependency>
+
+		<!-- jwt -->
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<!-- Uncomment this next dependency if you want to use RSASSA-PSS (PS256, PS384, PS512) algorithms: -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcpkix-jdk15on</artifactId>
+		</dependency>
+
+		<!-- test -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<!--<includeSystemScope>true</includeSystemScope>-->
+					<mainClass>${exec.mainClass}</mainClass>
+					<finalName>${fat.jar.name}</finalName>
+					<outputDirectory>target</outputDirectory>
+					<fork>true</fork>
+					<!--<addResources></addResources>-->
+					<jvmArguments>
+						-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+					</jvmArguments>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>build-info</goal>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>pl.project13.maven</groupId>
+				<artifactId>git-commit-id-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.openclover</groupId>
+				<artifactId>clover-maven-plugin</artifactId>
+				<version>${clover.version}</version>
+				<configuration>
+					<targetPercentage>${clover.target.line.percentage}</targetPercentage>
+					<conditionalPercentage>${clover.target.conditional.percentage}</conditionalPercentage>
+					<generatePdf>true</generatePdf>
+					<generateHtml>true</generateHtml>
+					<!-- we use a single Database which will be used for recording coverage -->
+					<snapshot>${project.basedir}/target/clover/clover.db</snapshot>
+					<singleCloverDatabase>true</singleCloverDatabase>
+					<!-- Output directory for Reporting -->
+					<outputDirectory>${project.basedir}/target/clover-report</outputDirectory>
+					<!-- Exclude Test sources from instrumention and hence coverage -->
+					<includesTestSourceRoots>true</includesTestSourceRoots>
+				</configuration>
+				<executions>
+					<execution>
+						<id>clover</id>
+						<phase>package</phase>
+						<goals>
+							<goal>instrument</goal>
+							<goal>check</goal>
+							<!-- To generate report mvn clean package clover:clover -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- This is needed for Forking during unit tests which is required by Code Coverage Agents.
+                   Newer Versions cause problem and this seems to be a common solution on the Internet -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>2.19.1</version>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
