@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.5.RELEASE</version>
+		<version>2.2.0.RELEASE</version>
 	</parent>
 	<groupId>com.ef.edtech.platform</groupId>
 	<artifactId>webflux-cassandra-demo</artifactId>
@@ -18,19 +18,14 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- jdk -->
-		<java.version>1.8</java.version>
+		<java.version>11</java.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
-		<!-- build -->
-		<fat.jar.name>webflux-cassandra-demo-${project.version}-fat</fat.jar.name>
-		<exec.mainClass>com.webflux.cassandra.demo.Application</exec.mainClass>
-		<!-- docker -->
-		<docker.image.prefix>${project.groupId}</docker.image.prefix>
 		<!-- testing -->
 		<junit.version>4.12</junit.version>
 		<mockito.version>2.22.0</mockito.version>
 		<!-- json -->
-		<com.fasterxml.jackson.core>2.9.6</com.fasterxml.jackson.core>
+		<com.fasterxml.jackson.core>2.11.2</com.fasterxml.jackson.core>
 		<!-- async logging -->
 		<com.lmax>3.3.6</com.lmax>
 		<!-- jwt -->
@@ -40,13 +35,39 @@
 		<io.springfox>3.0.0</io.springfox>
 		<!-- common lang -->
 		<org.apache.commons.lang>3.8.1</org.apache.commons.lang>
+		<!-- map struct -->
+		<mapstruct.version>1.3.0.Final</mapstruct.version>
+		<mapstruct.version>1.3.0.Final</mapstruct.version>
 		<!-- plugins -->
 		<com.spotify>1.0.0</com.spotify>
-		<!-- Open Clover Coverage -->
-		<!-- These coverage properties need to be overwritten where applicable -->
-		<clover.target.line.percentage>0%</clover.target.line.percentage>
-		<clover.target.conditional.percentage>0%</clover.target.conditional.percentage>
-		<clover.version>4.3.1</clover.version>
+		<resource.delimiter>@</resource.delimiter>
+		<maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+		<docker-maven-plugin.version>0.30.0</docker-maven-plugin.version>
+		<git-commit-id-plugin.version>3.0.1</git-commit-id-plugin.version>
+		<jacoco.version>0.8.4</jacoco.version>
+		<sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
+		<!-- build -->
+		<build.mainClass>replace.with.project.entry.class</build.mainClass>
+		<!-- nexus3 -->
+		<nexus3.baseUrl>http://10.178.86.135</nexus3.baseUrl>
+		<!-- testing -->
+		<test.reports.dir>target/test-reports</test.reports.dir>
+		<test.exclusion.files>**/core/**,**/domain/**,**/config/**,**/api/admin/**,**/Application.class</test.exclusion.files>
+		<!-- jacoco -->
+		<jacoco.dataFile>target/jacoco.exec</jacoco.dataFile>
+		<jacoco.outputDirectory>target/coverage-report</jacoco.outputDirectory>
+		<jacoco.line.coverage>50%</jacoco.line.coverage>
+		<jacoco.branch.coverage>50%</jacoco.branch.coverage>
+		<!-- sonar -->
+		<sonar.host.url>http://10.178.86.164</sonar.host.url>
+		<sonar.login>4dcea6c14ffedbbc0d4b1a0cccac9f1e4c214ae2</sonar.login>
+		<sonar.language>java</sonar.language>
+		<sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+		<sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+		<sonar.jacoco.reportPath>${jacoco.dataFile}</sonar.jacoco.reportPath>
+		<sonar.exclusions>${test.exclusion.files}</sonar.exclusions>
+		<sonar.coverage.exclusions>${test.exclusion.files}</sonar.coverage.exclusions>
+
 	</properties>
 
 	<dependencyManagement>
@@ -133,6 +154,24 @@
 				<artifactId>bcpkix-jdk15on</artifactId>
 				<version>${org.bouncycastle}</version>
 			</dependency>
+			<!-- jacoco -->
+			<dependency>
+				<groupId>org.jacoco</groupId>
+				<artifactId>org.jacoco.agent</artifactId>
+				<version>${jacoco.version}</version>
+				<classifier>runtime</classifier>
+			</dependency>
+			<!-- mapstruct -->
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct</artifactId>
+				<version>${mapstruct.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.mapstruct</groupId>
+				<artifactId>mapstruct-processor</artifactId>
+				<version>${mapstruct.version}</version>
+			</dependency>
 			<!-- test -->
 			<dependency>
 				<groupId>org.mockito</groupId>
@@ -160,10 +199,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-aop</artifactId>
-		</dependency>
 		<!-- Log4j2 Support -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -174,9 +209,26 @@
 			<groupId>com.lmax</groupId>
 			<artifactId>disruptor</artifactId>
 		</dependency>
+		<!-- web flux -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
 		</dependency>
 
 		<!-- redis -->
@@ -206,17 +258,6 @@
 			<artifactId>spring-boot-starter-data-cassandra-reactive</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-
 		<!-- apache commons -->
 		<dependency>
 			<groupId>org.apache.commons</groupId>
@@ -227,7 +268,7 @@
 			<artifactId>commons-pool2</artifactId>
 		</dependency>
 
-		<!-- swagger3 for webflux -->
+		<!-- swagger3 for web flux -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -283,12 +324,29 @@
 			<groupId>org.bouncycastle</groupId>
 			<artifactId>bcpkix-jdk15on</artifactId>
 		</dependency>
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<!-- for Model Mapper support -->
+		<dependency>
+			<groupId>org.mapstruct</groupId>
+			<artifactId>mapstruct</artifactId>
+		</dependency>
 
 		<!-- test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.junit.vintage</groupId>
+					<artifactId>junit-vintage-engine</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>io.projectreactor</groupId>
@@ -305,73 +363,276 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
 	</dependencies>
 	<build>
+		<pluginManagement>
+			<plugins>
+				<!-- build thin-jar -->
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<configuration>
+						<mainClass>${build.mainClass}</mainClass>
+						<layout>ZIP</layout>
+						<includes>
+							<include>
+								<groupId>${project.groupId}</groupId>
+								<artifactId>${project.artifactId}</artifactId>
+							</include>
+						</includes>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>build-info</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- copy dependencies -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-dependency-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>copy-dependencies</id>
+							<goals>
+								<goal>copy-dependencies</goal>
+							</goals>
+							<phase>compile</phase>
+							<configuration>
+								<includeScope>runtime</includeScope>
+								<outputDirectory>${project.basedir}/target/libs</outputDirectory>
+								<stripVersion>true</stripVersion>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- attach sources -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<phase>package</phase>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- unit test -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<reportsDirectory>${test.reports.dir}</reportsDirectory>
+					</configuration>
+				</plugin>
+				<!-- integration test -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-failsafe-plugin</artifactId>
+					<executions>
+						<execution>
+							<goals>
+								<goal>integration-test</goal>
+								<goal>verify</goal>
+							</goals>
+						</execution>
+					</executions>
+					<configuration>
+						<reportsDirectory>${test.reports.dir}</reportsDirectory>
+					</configuration>
+				</plugin>
+				<!-- setup/clean integration test environment -->
+				<plugin>
+					<groupId>io.fabric8</groupId>
+					<artifactId>docker-maven-plugin</artifactId>
+					<version>${docker-maven-plugin.version}</version>
+					<executions>
+						<execution>
+							<id>prepare-it-env</id>
+							<goals>
+								<goal>start</goal>
+							</goals>
+							<configuration>
+								<images>
+									<image>
+										<external>
+											<type>compose</type>
+											<basedir>src/test/resources</basedir>
+											<composeFile>test-compose.yaml</composeFile>
+										</external>
+										<run>
+											<wait>
+												<time>5000</time>
+											</wait>
+										</run>
+									</image>
+								</images>
+							</configuration>
+						</execution>
+						<execution>
+							<id>clean-it-env</id>
+							<goals>
+								<goal>stop</goal>
+								<goal>remove</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- setup git-commit-id-plugin to show commit id in actuator/info -->
+				<plugin>
+					<groupId>pl.project13.maven</groupId>
+					<artifactId>git-commit-id-plugin</artifactId>
+					<version>${git-commit-id-plugin.version}</version>
+					<configuration>
+						<excludeProperties>
+							<!-- There is a problem with this plugin with JDK 11 and Intellij 2019.2.4 -->
+							<!--  This solves it and the actuator info still works -->
+							<!-- https://github.com/git-commit-id/maven-git-commit-id-plugin/issues/421 -->
+							<excludeProperty>^git.local.branch.*$</excludeProperty>
+						</excludeProperties>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>${maven-release-plugin.version}</version>
+					<configuration>
+						<tagNameFormat>v@{project.version}</tagNameFormat>
+					</configuration>
+				</plugin>
+				<!-- code coverage -->
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${jacoco.version}</version>
+					<configuration>
+						<dataFile>${jacoco.dataFile}</dataFile>
+						<outputDirectory>${jacoco.outputDirectory}</outputDirectory>
+						<excludes>
+							${test.exclusion.files}
+						</excludes>
+					</configuration>
+					<executions>
+						<execution>
+							<id>jacoco-instrument</id>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>generate-report</id>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>check-coverage</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>check</goal>
+							</goals>
+							<configuration>
+								<rules>
+									<rule>
+										<element>BUNDLE</element>
+										<limits>
+											<limit>
+												<counter>LINE</counter>
+												<value>COVEREDRATIO</value>
+												<minimum>${jacoco.line.coverage}</minimum>
+											</limit>
+											<limit>
+												<counter>BRANCH</counter>
+												<value>COVEREDRATIO</value>
+												<minimum>${jacoco.branch.coverage}</minimum>
+											</limit>
+											<limit>
+												<counter>CLASS</counter>
+												<value>MISSEDCOUNT</value>
+												<minimum>0</minimum>
+											</limit>
+										</limits>
+									</rule>
+								</rules>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<!-- sonarqube -->
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>${sonar-maven-plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<!--<includeSystemScope>true</includeSystemScope>-->
-					<mainClass>${exec.mainClass}</mainClass>
-					<finalName>${fat.jar.name}</finalName>
-					<outputDirectory>target</outputDirectory>
-					<fork>true</fork>
-					<!--<addResources></addResources>-->
-					<jvmArguments>
-						-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
-					</jvmArguments>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>build-info</goal>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			<!-- embed git-commit info -->
 			<plugin>
 				<groupId>pl.project13.maven</groupId>
 				<artifactId>git-commit-id-plugin</artifactId>
 			</plugin>
+			<!--maven compiler plugin-->
 			<plugin>
-				<groupId>org.openclover</groupId>
-				<artifactId>clover-maven-plugin</artifactId>
-				<version>${clover.version}</version>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<targetPercentage>${clover.target.line.percentage}</targetPercentage>
-					<conditionalPercentage>${clover.target.conditional.percentage}</conditionalPercentage>
-					<generatePdf>true</generatePdf>
-					<generateHtml>true</generateHtml>
-					<!-- we use a single Database which will be used for recording coverage -->
-					<snapshot>${project.basedir}/target/clover/clover.db</snapshot>
-					<singleCloverDatabase>true</singleCloverDatabase>
-					<!-- Output directory for Reporting -->
-					<outputDirectory>${project.basedir}/target/clover-report</outputDirectory>
-					<!-- Exclude Test sources from instrumention and hence coverage -->
-					<includesTestSourceRoots>true</includesTestSourceRoots>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+							<version>${lombok.version}</version>
+						</path>
+						<path>
+							<groupId>org.mapstruct</groupId>
+							<artifactId>mapstruct-processor</artifactId>
+							<version>${mapstruct.version}</version>
+						</path>
+					</annotationProcessorPaths>
 				</configuration>
-				<executions>
-					<execution>
-						<id>clover</id>
-						<phase>package</phase>
-						<goals>
-							<goal>instrument</goal>
-							<goal>check</goal>
-							<!-- To generate report mvn clean package clover:clover -->
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
-			<!-- This is needed for Forking during unit tests which is required by Code Coverage Agents.
-                   Newer Versions cause problem and this seems to be a common solution on the Internet -->
+			<!--build thin-jar-->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- copy dependencies -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+			</plugin>
+			<!-- unit test -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.19.1</version>
+			</plugin>
+			<!-- integration test -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+			</plugin>
+			<!-- code coverage -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+			<!-- sonarqube -->
+			<plugin>
+				<groupId>org.sonarsource.scanner.maven</groupId>
+				<artifactId>sonar-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>webflux-cassandra-demo</finalName>
 	</build>
 
 </project>

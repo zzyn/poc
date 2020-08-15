@@ -1,152 +1,79 @@
 package com.webflux.cassandra.demo.api.v1;
 
-import com.datastax.driver.core.ConsistencyLevel;
-import com.datastax.driver.core.SimpleStatement;
-import com.webflux.cassandra.demo.core.bind.Consistency;
-import com.webflux.cassandra.demo.core.bind.Jwt;
-import com.webflux.cassandra.demo.core.cache.ReactiveRedisService;
-import com.webflux.cassandra.demo.core.entity.ConsistencyContext;
-import com.webflux.cassandra.demo.core.entity.JwtContext;
-import com.webflux.cassandra.demo.domain.entity.Plan;
-import com.webflux.cassandra.demo.core.CoreConstants;
+import com.webflux.cassandra.demo.core.mapper.PlanMapperUtility;
+import com.webflux.cassandra.demo.core.utility.PlanUtility;
+import com.webflux.cassandra.demo.domain.dto.PlanDto;
+import com.webflux.cassandra.demo.domain.model.PlanCollectionRequestModel;
+import com.webflux.cassandra.demo.domain.model.PlanQueryModel;
+import com.webflux.cassandra.demo.domain.model.PlanRequestModel;
+import com.webflux.cassandra.demo.domain.model.PlanUpdateRequestModel;
+import com.webflux.cassandra.demo.service.PlanService;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.cassandra.core.InsertOptions;
-import org.springframework.data.cassandra.core.ReactiveCassandraTemplate;
-import org.springframework.data.cassandra.core.UpdateOptions;
-import org.springframework.data.cassandra.core.cql.QueryOptions;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import springfox.documentation.annotations.ApiIgnore;
+
+import java.util.List;
+import java.util.Objects;
 
 @Api
 @RestController
 @RequestMapping("/api/v1/plan")
 public class PlanController {
 
-    private final ReactiveCassandraTemplate reactiveCassandraTemplate;
-    private final ReactiveRedisService reactiveRedisService;
+    private final PlanService planService;
 
     @Autowired
-    public PlanController(ReactiveCassandraTemplate reactiveCassandraTemplate, ReactiveRedisService reactiveRedisService){
-        this.reactiveCassandraTemplate = reactiveCassandraTemplate;
-        this.reactiveRedisService = reactiveRedisService;
+    public PlanController(PlanService planService){
+        this.planService=planService;
     }
 
-    @RequestMapping(
-            method = RequestMethod.GET,
-            path = "/single",
+    @GetMapping(path = "/{productid}/{bucketid}/{planbusinesskey}",
             consumes = MediaType.ALL_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public Mono<Plan> single() throws Exception {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("select * from plan where id = %s ;", ""));
-        String cql = sb.toString();
-        cql = "select * from plan where id = d7a8fce0-919d-11e9-a991-ad3070da029e ";
-
-        Mono<Plan> p = reactiveCassandraTemplate.selectOne(cql, Plan.class);
-
-        return p;
-    }
-
-
-    @RequestMapping(
-            method = RequestMethod.GET,
-            path = "/query",
-            consumes = MediaType.ALL_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    @ApiImplicitParams(value={
-            @ApiImplicitParam(name = CoreConstants.CONSISTENT_LEVEL_HEADER, value = CoreConstants.CONSISTENT_LEVEL_DESC, required = false, paramType = "header", defaultValue = "QUORUM")
-    })
-    public Mono<Plan> query(@ApiIgnore @Jwt JwtContext jwtContext, @ApiIgnore @Consistency ConsistencyContext consistencyContext) throws Exception {
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("select * from plan where id = %s ;", ""));
-        String cql = sb.toString();
-        cql = "select * from plan where id = d7a8fce0-919d-11e9-a991-ad3070da029e ";
-
-        //DefaultPreparedStatement
-        //BatchStatement
-        //BoundStatement
-        //SimpleStatement
-        //PreparedStatement
-        //RegularStatement
-        //reactiveCassandraTemplate.selectOne()
-
-        SimpleStatement simpleStatement = new SimpleStatement(cql);
-        simpleStatement.setConsistencyLevel(consistencyContext.getConsistencyLevel());
-
-        Mono<Plan> p = reactiveCassandraTemplate.selectOne(simpleStatement, Plan.class);
-
-        return p;
-    }
-
-
-    @RequestMapping(
-            method = RequestMethod.GET,
-            path = "/insert",
-            consumes = MediaType.ALL_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public Mono<Plan> insert() throws Exception {
-
-        Plan p = null;
-
-        //insert
-        InsertOptions options = InsertOptions
-                .builder()
-                .consistencyLevel(ConsistencyLevel.ONE)
-                .build();
-
-        return reactiveCassandraTemplate.insert(p, options).map(x-> { return x.getEntity() ;});
-    }
-
-    @RequestMapping(
-            method = RequestMethod.GET,
-            path = "/update",
-            consumes = MediaType.ALL_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public Mono<Plan> update() throws Exception {
-
-        Plan p = null;
-
-        //update
-        UpdateOptions options = UpdateOptions
-                .builder()
-                .consistencyLevel(ConsistencyLevel.ONE)
-                .build();
-
-        return reactiveCassandraTemplate.update(p, options).map(x-> { return x.getEntity() ;});
-    }
-
-
-    @RequestMapping(
-            method = RequestMethod.GET,
-            path = "/delete",
-            consumes = MediaType.ALL_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
-    )
-    public Mono<Boolean> delete() throws Exception {
-
-        Plan p = null;
-
-        //delete
-        QueryOptions options = QueryOptions
-                .builder()
-                .consistencyLevel(ConsistencyLevel.ONE)
-                .build();
-
-        return reactiveCassandraTemplate.delete(p, options).map(x-> { return x.wasApplied() ;});
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public Flux<PlanDto> getPlans(@PathVariable int productid,
+                                  @PathVariable  String planbusinesskey,
+                                  @PathVariable  int bucketid,
+                                  String studentkey,
+                                  String systemkey,
+                                  Integer limit,
+                                  Integer page)  {
+        return planService.getPlans(new PlanQueryModel(productid, planbusinesskey, bucketid, studentkey, PlanUtility.toUuid(systemkey)), limit, page);
 
     }
 
+    @PostMapping(produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE })
+    public Mono<PlanDto> insert(@Validated @RequestBody PlanRequestModel planRequest){
+        return planService.create(PlanMapperUtility.PLAN_ENTITY_MAPPER.planRequestToPlanEntity(planRequest), PlanUtility.INSERT_QUROUM);
+    }
+
+    @PostMapping(path = "/batch", produces = { MediaType.APPLICATION_JSON_VALUE }, consumes = { MediaType.APPLICATION_JSON_VALUE })
+    public Mono<List<PlanDto>> insertBatch(@Validated @RequestBody PlanCollectionRequestModel planRequests) {
+        Mono<List<PlanDto>> result = planService.createBatch(PlanMapperUtility.PLAN_ENTITY_MAPPER.planRequestToPlanEntity(planRequests.getRequests()), PlanUtility.INSERT_QUROUM);
+        if (Objects.isNull(result)) {
+            throw new RuntimeException("error msg"); //TODO: error description
+        }
+        return result;
+    }
+
+    @PutMapping(
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public Mono<Boolean> update(@Validated @RequestBody PlanUpdateRequestModel planRequest) {
+        return planService.update(PlanMapperUtility.PLAN_ENTITY_MAPPER.planUpdateRequestToPlanEntity(planRequest));
+    }
+
+    @DeleteMapping(
+            path = "/{productid}/{bucketid}/{planbusinesskey}",
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseStatus(HttpStatus.OK)
+    public Mono<Boolean> delete(@PathVariable int productid, @PathVariable String planbusinesskey, @PathVariable int bucketid, String studentkey, String systemkey){
+        return planService.detete(new PlanQueryModel(productid,planbusinesskey,bucketid,studentkey,PlanUtility.toUuid(systemkey)));
+    }
 }

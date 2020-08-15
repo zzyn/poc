@@ -1,0 +1,65 @@
+#!groovy
+library identifier: 'jenkinssharedlib@tc/v2', retriever: modernSCM(
+  [$class       : 'GitSCMSource',
+   remote       : 'ssh://git@bitbucket.englishtown.cn:7999/elab/jenkinssharedlib.git',
+   credentialsId: '6eb8497e-6687-41e7-8a3c-1856eb98116e'])
+
+config = [
+  service           : 'learning-plan',                   // docker-compose service for building image.
+  imageRepo         : 'edtech-kt/learning-plan',
+  teamsConnectorName: 'Platform Channel',
+  teamsConnectorUrl:  'https://outlook.office.com/webhook/a7f32c1d-faf5-4e70-9b87-c1553ce93d97@f0d1c6fd-dff0-486a-8e91-cfefefc7d98d/JenkinsCI/d1eecb1befc04b00af2dc4a275959ac8/6034223b-343c-4dc8-8cd6-f71f41659b6c'
+]
+
+pipeline {
+  options {
+    disableConcurrentBuilds()
+    timeout(time: 15, unit: 'MINUTES')
+    buildDiscarder(logRotator(numToKeepStr: '20'))
+    office365ConnectorWebhooks([[
+                                  name: config.teamsConnectorName, url: config.teamsConnectorUrl,
+                                  notifySuccess: true, notifyFailure: true, notifyRepeatedFailure: true, notifyUnstable: true, notifyBackToNormal: true
+                                ]])
+  }
+  triggers {
+    pollSCM('H/5 * * * *')
+  }
+  agent {
+    kubernetes {
+      label 'java11-slave'
+      defaultContainer 'jnlp'
+      yaml ktJava11PodTemplate()
+    }
+  }
+  stages {
+    stage('Prepare') {
+      steps {
+        container('maven') {
+          script {
+            def branch = ktGetTriggerBranch()
+            def commitHash = ktGetCommitHash()
+            IMAGE_TAG = ktGetBranchWithHashTag(branch, commitHash)
+          }
+        }
+      }
+    }
+    stage('Build & Package') {
+      steps {
+        container('maven') {
+          sh """
+          mvn -B verify sonar:sonar
+          """
+        }
+      }
+    }
+    stage('Build & Push Image') {
+      steps {
+        script {
+          container('docker') {
+            ktBuildAndPushImage(config.service, config.imageRepo, IMAGE_TAG)
+          }
+        }
+      }
+    }
+  }
+}

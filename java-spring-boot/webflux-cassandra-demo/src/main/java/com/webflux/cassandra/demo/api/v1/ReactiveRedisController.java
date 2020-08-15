@@ -34,7 +34,7 @@ public class ReactiveRedisController {
             method = RequestMethod.GET,
             path = "/save",
             consumes = MediaType.ALL_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiOperation(value = "save value")
     @ApiResponses(value = {
@@ -55,7 +55,7 @@ public class ReactiveRedisController {
             method = RequestMethod.GET,
             path = "/saveset",
             consumes = MediaType.ALL_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiOperation(value = "save set")
     @ApiResponses(value = {
@@ -82,7 +82,7 @@ public class ReactiveRedisController {
             method = RequestMethod.GET,
             path = "/get",
             consumes = MediaType.ALL_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiOperation(value = "get value")
     @ApiResponses(value = {
@@ -100,7 +100,7 @@ public class ReactiveRedisController {
             method = RequestMethod.GET,
             path = "/getset",
             consumes = MediaType.ALL_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiOperation(value = "get set")
     @ApiResponses(value = {
@@ -118,7 +118,7 @@ public class ReactiveRedisController {
             method = RequestMethod.GET,
             path = "/delete",
             consumes = MediaType.ALL_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiOperation(value = "delete value")
     @ApiResponses(value = {
@@ -136,7 +136,7 @@ public class ReactiveRedisController {
             method = RequestMethod.GET,
             path = "/exist",
             consumes = MediaType.ALL_VALUE,
-            produces = MediaType.APPLICATION_JSON_UTF8_VALUE
+            produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ApiOperation(value = "has key")
     @ApiResponses(value = {

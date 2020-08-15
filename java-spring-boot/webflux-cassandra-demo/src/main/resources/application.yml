@@ -1,6 +1,44 @@
 spring:
+  application:
+    name: 'webflux-cassandra-demo'
   profiles:
-    active: qa
+    active: dev
+  main:
+    web-application-type: reactive
+  data:
+    cassandra:
+      keyspace-name: 'kids'
+      username: 'plan_app'
+      password: 'OW^&%*!jhU@$^|cNsTG'
+      port: 9042
+      contact-points:
+        - 10.178.86.216
+      pool:
+        heartbeat-interval: 30s
+        idle-timeout: 120s
+        pool-timeout: 5000ms
+        max-queue-size: 256
+
+redis:
+  database: 0
+  host: 10.178.86.196
+  password: 'Efef@123!'
+  lettuce:
+    pool:
+      max-active: 10000
+      max-wait: 5000
+      max-idle: 30
+      min-idle: 5
+  timeout: 5000
+  app-ttl: 43200
+  app-enabled: true
+
+swagger:
+  enabled: true
+  title: "@project.name@"
+  description: "@project.description@"
+  version: "@project.version@"
+  base-package: "com.ef.edtech.platform.plansvc.api"
 
 info:
   app:
@@ -13,3 +51,38 @@ info:
       source: "@java.version@"
       target: "@java.version@"
 
+server:
+  port: 8080
+
+management:
+  server:
+    port: 8080
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+    jmx:
+      exposure:
+        include: '*'
+  endpoint:
+    shutdown:
+      enabled: false
+  info:
+    defaults:
+      enabled: true
+    git:
+      mode: full
+  health:
+    cassandra:
+      enabled: false
+
+logging:
+  level:
+    root: info
+    org:
+      springframework:
+        web: DEBUG
+
+jwt:
+  private-key: 'keys/rsa/private_key.pem'
+  public-key: 'keys/rsa/public_key.pem'

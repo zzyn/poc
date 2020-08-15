@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import static com.webflux.cassandra.demo.domain.entity.Constants.LOCAL_DATETIME_PATTERN;
+import static com.webflux.cassandra.demo.domain.Constants.LOCAL_DATETIME_PATTERN;
 
 @JsonAutoDetect
 @Table(value = "plan")

@@ -1,19 +1,15 @@
-FROM maven:3.6.0-jdk-8-alpine AS build-env
+FROM openjdk:11-jdk-slim
+
 WORKDIR /app
 
-# copy everything else and build
-COPY . ./
-RUN mvn clean package -U
+COPY target/libs ./libs
+COPY target/*.jar ./app.jar
 
-# build runtime image
-FROM openjdk:8-jdk-alpine
-WORKDIR /app
+# application
+EXPOSE 8080
+# java remote debug
+EXPOSE 5005
+# jacoco agent
+EXPOSE 6300
 
-ENV APP_JVM_OPTS ""
-ENV APP_PROFILE ""
-
-COPY --from=build-env /app/target/*fat.jar ./app.jar
-
-EXPOSE 80 8080 9000 5005
-
-ENTRYPOINT exec java $APP_JVM_OPTS -jar app.jar $APP_PROFILE
+ENTRYPOINT exec java -Dloader.path=libs -Duser.timezone=UTC $APP_JVM_OPTS -jar app.jar $APP_MAIN_ARGS
