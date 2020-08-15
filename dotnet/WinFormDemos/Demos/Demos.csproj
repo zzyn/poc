@@ -1,0 +1,359 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C4331025-1CA2-40FD-AFAD-A453DCCA3416}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Demos</RootNamespace>
+    <AssemblyName>Demos</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\App\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Drawing\Images\DrawingToImageDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Images\DrawingToImageDemo.Designer.cs">
+      <DependentUpon>DrawingToImageDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Images\AnimationDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Images\AnimationDemo.Designer.cs">
+      <DependentUpon>AnimationDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Shapes\CurvesDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Shapes\CurvesDemo.Designer.cs">
+      <DependentUpon>CurvesDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Pens\CreateingPensFromBrushes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Pens\CreateingPensFromBrushes.Designer.cs">
+      <DependentUpon>CreateingPensFromBrushes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Pens\DashesDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Pens\DashesDemo.Designer.cs">
+      <DependentUpon>DashesDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Brushs\BrushsDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Brushs\BrushsDemo.Designer.cs">
+      <DependentUpon>BrushsDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\DrawingToScreen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\DrawingToScreen.Designer.cs">
+      <DependentUpon>DrawingToScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\HandlingThePaintEvent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\HandlingThePaintEvent.Designer.cs">
+      <DependentUpon>HandlingThePaintEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Brushs\HatchBrushsDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Brushs\HatchBrushsDemo.Designer.cs">
+      <DependentUpon>HatchBrushsDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Brushs\LinearGradentBrushDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Brushs\LinearGradentBrushDemo.Designer.cs">
+      <DependentUpon>LinearGradentBrushDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Brushs\PathGradientBrushDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Brushs\PathGradientBrushDemo.Designer.cs">
+      <DependentUpon>PathGradientBrushDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Brushs\TextureBrushsDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Brushs\TextureBrushsDemo.Designer.cs">
+      <DependentUpon>TextureBrushsDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormatNotificationFormDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormatNotificationFormDialog.designer.cs">
+      <DependentUpon>FormatNotificationFormDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Pens\JoinsDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Pens\JoinsDemo.Designer.cs">
+      <DependentUpon>JoinsDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Pens\LineCapsDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Pens\LineCapsDemo.Designer.cs">
+      <DependentUpon>LineCapsDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Paths\FillModesDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Paths\FillModesDemo.Designer.cs">
+      <DependentUpon>FillModesDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Images\LoadingAndDrawingImagesDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Images\LoadingAndDrawingImagesDemo.Designer.cs">
+      <DependentUpon>LoadingAndDrawingImagesDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\ModelessFormDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\ModelessFormDialog.designer.cs">
+      <DependentUpon>ModelessFormDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NonRectangularForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NonRectangularForm.designer.cs">
+      <DependentUpon>NonRectangularForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Pens\PenAlignmentDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Pens\PenAlignmentDemo.Designer.cs">
+      <DependentUpon>PenAlignmentDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Paths\PathsDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Paths\PathsDemo.Designer.cs">
+      <DependentUpon>PathsDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Drawing\Shapes\SmoothingModesDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Shapes\SmoothingModesDemo.Designer.cs">
+      <DependentUpon>SmoothingModesDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Shapes\SavingAndRestoringGraphicsSettingsDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Shapes\SavingAndRestoringGraphicsSettingsDemo.Designer.cs">
+      <DependentUpon>SavingAndRestoringGraphicsSettingsDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Images\ScalingAndSkewingDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Images\ScalingAndSkewingDemo.Designer.cs">
+      <DependentUpon>ScalingAndSkewingDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Images\RotatingAndFlippingDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Images\RotatingAndFlippingDemo.Designer.cs">
+      <DependentUpon>RotatingAndFlippingDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Images\RecoloringDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Images\RecoloringDemo.Designer.cs">
+      <DependentUpon>RecoloringDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Images\TransparentDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Images\TransparentDemo.Designer.cs">
+      <DependentUpon>TransparentDemo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Drawing\Images\ScreenCopyingDemo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Drawing\Images\ScreenCopyingDemo.Designer.cs">
+      <DependentUpon>ScreenCopyingDemo.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Drawing\Brushs\BrushsDemo.resx">
+      <DependentUpon>BrushsDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\DrawingToScreen.resx">
+      <DependentUpon>DrawingToScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\HandlingThePaintEvent.resx">
+      <DependentUpon>HandlingThePaintEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Brushs\HatchBrushsDemo.resx">
+      <DependentUpon>HatchBrushsDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Brushs\LinearGradentBrushDemo.resx">
+      <DependentUpon>LinearGradentBrushDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Brushs\PathGradientBrushDemo.resx">
+      <DependentUpon>PathGradientBrushDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Brushs\TextureBrushsDemo.resx">
+      <DependentUpon>TextureBrushsDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormatNotificationFormDialog.resx">
+      <DependentUpon>FormatNotificationFormDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Images\AnimationDemo.resx">
+      <DependentUpon>AnimationDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Images\DrawingToImageDemo.resx">
+      <DependentUpon>DrawingToImageDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Images\LoadingAndDrawingImagesDemo.resx">
+      <DependentUpon>LoadingAndDrawingImagesDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Images\RecoloringDemo.resx">
+      <DependentUpon>RecoloringDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Images\RotatingAndFlippingDemo.resx">
+      <DependentUpon>RotatingAndFlippingDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Images\ScalingAndSkewingDemo.resx">
+      <DependentUpon>ScalingAndSkewingDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Images\ScreenCopyingDemo.resx">
+      <DependentUpon>ScreenCopyingDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Images\TransparentDemo.resx">
+      <DependentUpon>TransparentDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Paths\FillModesDemo.resx">
+      <DependentUpon>FillModesDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Paths\PathsDemo.resx">
+      <DependentUpon>PathsDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Pens\CreateingPensFromBrushes.resx">
+      <DependentUpon>CreateingPensFromBrushes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Pens\DashesDemo.resx">
+      <DependentUpon>DashesDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Pens\JoinsDemo.resx">
+      <DependentUpon>JoinsDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Pens\LineCapsDemo.resx">
+      <DependentUpon>LineCapsDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Pens\PenAlignmentDemo.resx">
+      <DependentUpon>PenAlignmentDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Shapes\CurvesDemo.resx">
+      <DependentUpon>CurvesDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Shapes\SavingAndRestoringGraphicsSettingsDemo.resx">
+      <DependentUpon>SavingAndRestoringGraphicsSettingsDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Drawing\Shapes\SmoothingModesDemo.resx">
+      <DependentUpon>SmoothingModesDemo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\ModelessFormDialog.resx">
+      <DependentUpon>ModelessFormDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NonRectangularForm.resx">
+      <DependentUpon>NonRectangularForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\CodeBlock.ico" />
+    <None Include="Resources\TestSuite.ico" />
+    <None Include="Resources\TestCaseGroup.ico" />
+    <None Include="Resources\TestCase.ico" />
+    <None Include="Resources\Disable.png" />
+    <None Include="Resources\8-7.png" />
+    <Content Include="Resources\CCAppWiz.win32.ico" />
+    <None Include="Resources\Animation.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CustomComponents\" />
+    <Folder Include="CustomControls\" />
+    <Folder Include="Drawing\Advance\" />
+    <Folder Include="Drawing\Text\" />
+    <Folder Include="Layout\" />
+    <Folder Include="Printing\" />
+    <Folder Include="UIThreading\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

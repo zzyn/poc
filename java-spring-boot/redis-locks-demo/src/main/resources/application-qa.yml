@@ -1,0 +1,29 @@
+server:
+  port: 8081
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  jackson:
+    time-zone: UTC
+  main:
+    web-application-type: servlet
+  http:
+    log-request-details: true
+  application:
+    name: redis-lock[qa]
+
+logging:
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36}.%M() @%L - %msg%n'
+    level: DEBUG
+  level:
+    root: DEBUG
+
+
+
+
+
+
+

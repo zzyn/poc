@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mq.kafka.demo.mapper.CityMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mq.kafka.demo.entity.City">
+        <id column="id" property="id" />
+        <result column="city_key" property="cityKey" />
+        <result column="city_name" property="cityName" />
+        <result column="city_cname" property="cityCname" />
+        <result column="country" property="country" />
+        <result column="created_by" property="createdBy" />
+        <result column="created_timestamp" property="createdTimestamp" />
+        <result column="updated_by" property="updatedBy" />
+        <result column="updated_timestamp" property="updatedTimestamp" />
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.rpc</groupId>
+	<artifactId>grpc-client</artifactId>
+	<version>0.0.1</version>
+	<name>grpc-client</name>
+	<description>demo project for grpc client</description>
+
+	<properties>
+		<!-- encoding -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- jdk -->
+		<java.version>1.8</java.version>
+		<maven.compiler.source>${java.version}</maven.compiler.source>
+		<maven.compiler.target>${java.version}</maven.compiler.target>
+		<protobuf.version>3.11.4</protobuf.version>
+		<grpc.version>1.28.1</grpc.version>
+
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.google.protobuf</groupId>
+			<artifactId>protobuf-java</artifactId>
+			<version>${protobuf.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-netty-shaded</artifactId>
+			<version>${grpc.version}</version>
+
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-protobuf</artifactId>
+			<version>${grpc.version}</version>
+
+		</dependency>
+		<dependency>
+			<groupId>io.grpc</groupId>
+			<artifactId>grpc-stub</artifactId>
+			<version>${grpc.version}</version>
+
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.18.12</version>
+			<scope>provided</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+
+		<!--<extensions>-->
+			<!--<extension>-->
+				<!--<groupId>kr.motd.maven</groupId>-->
+				<!--<artifactId>os-maven-plugin</artifactId>-->
+				<!--<version>1.6.2</version>-->
+			<!--</extension>-->
+		<!--</extensions>-->
+		<plugins>
+			<!--<plugin>-->
+				<!--<groupId>kr.motd.maven</groupId>-->
+				<!--<artifactId>os-maven-plugin</artifactId>-->
+				<!--<version>1.6.2</version>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<phase>initialize</phase>-->
+						<!--<goals>-->
+							<!--<goal>detect</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
+			<!--<plugin>-->
+				<!--<groupId>org.apache.maven.plugins</groupId>-->
+				<!--<artifactId>maven-toolchains-plugin</artifactId>-->
+				<!--<version>1.0</version>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<phase>validate</phase>-->
+						<!--<goals>-->
+							<!--<goal>toolchain</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+				<!--<configuration>-->
+					<!--<toolchains>-->
+						<!--<protobuf>-->
+							<!--<version>[2.4,2.5)</version>-->
+						<!--</protobuf>-->
+					<!--</toolchains>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
+			<!--<plugin>-->
+				<!--<groupId>org.xolstice.maven.plugins</groupId>-->
+				<!--<artifactId>protobuf-maven-plugin</artifactId>-->
+				<!--<version>0.6.1</version>-->
+				<!--<extensions>true</extensions>-->
+				<!--<configuration>-->
+					<!--&lt;!&ndash;<protocExecutable>/usr/local/bin/protoc</protocExecutable>&ndash;&gt;-->
+					<!--<pluginId>grpc-java</pluginId>-->
+					<!--&lt;!&ndash;<protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:${os.detected.classifier}</protocArtifact>&ndash;&gt;-->
+					<!--&lt;!&ndash;<pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}</pluginArtifact>&ndash;&gt;-->
+					<!--<protocArtifact>com.google.protobuf:protoc:${protobuf.version}:exe:osx-x86_64</protocArtifact>-->
+					<!--<pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:osx-x86_64</pluginArtifact>-->
+
+					<!--&lt;!&ndash;默认值&ndash;&gt;-->
+					<!--&lt;!&ndash;<protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>&ndash;&gt;-->
+					<!--&lt;!&ndash;默认值&ndash;&gt;-->
+					<!--&lt;!&ndash;<outputDirectory>${project.build.directory}/generated-sources/protobuf/java</outputDirectory>&ndash;&gt;-->
+					<!--&lt;!&ndash;<outputDirectory>${project.build.sourceDirectory}</outputDirectory>&ndash;&gt;-->
+					<!--&lt;!&ndash;设置是否在生成java文件之前清空outputDirectory的文件，默认值为true，设置为false时也会覆盖同名文件&ndash;&gt;-->
+					<!--&lt;!&ndash;<clearOutputDirectory>false</clearOutputDirectory>&ndash;&gt;-->
+					<!--&lt;!&ndash;默认值&ndash;&gt;-->
+					<!--&lt;!&ndash;<temporaryProtoFileDirectory>${project.build.directory}/protoc-dependencies</temporaryProtoFileDirectory>&ndash;&gt;-->
+					<!--&lt;!&ndash;更多配置信息可以查看https://www.xolstice.org/protobuf-maven-plugin/compile-mojo.html&ndash;&gt;-->
+
+				<!--</configuration>-->
+				<!--<executions>-->
+					<!--<execution>-->
+						<!--<goals>-->
+							<!--<goal>compile</goal>-->
+							<!--<goal>compile-custom</goal>-->
+						<!--</goals>-->
+					<!--</execution>-->
+				<!--</executions>-->
+			<!--</plugin>-->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+
+	</build>
+
+</project>

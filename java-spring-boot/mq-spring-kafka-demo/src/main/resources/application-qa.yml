@@ -1,0 +1,105 @@
+spring:
+#  cloud:
+#    stream:
+#      kafka:
+#        binder:
+#          auto-create-topics: false
+#          auto-add-partitions: false
+#          configuration:
+#            security:
+#              protocol: SASL_PLAINTEXT
+#            sasl:
+#              mechanism: PLAIN
+#            api:
+#              version: 0.10.0
+#            auto:
+#              offset:
+#                reset: earliest
+#          jaas:
+#            control-flag: required
+#            login-module: org.apache.kafka.common.security.plain.PlainLoginModule
+#            options:
+#              username: 'ckafka-xxxxxxxx#qa'
+#              password: 'qa'
+#          brokers: 127.0.0.1:9092
+#          consumer-properties:
+#            enable-auto-commit: false
+#        bindings:
+#          bookings:
+#            group: test123
+#            destination: bookings
+#      default-binder: kafka
+#      binding-retry-interval: 30
+  kafka:
+    bootstrap-servers: 127.0.0.1:9092
+    jaas:
+      control-flag: required
+      enabled: true
+      login-module: org.apache.kafka.common.security.plain.PlainLoginModule
+      options:
+        username: 'ckafka-xxxxxxxx#qa'
+        password: 'qa'
+    consumer:
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      max-poll-records: 100
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        sasl.mechanism: PLAIN
+        security.protocol: SASL_PLAINTEXT
+    listener:
+      ack-mode: manual_immediate
+      poll-timeout: 3000ms
+      concurrency: 3
+      type: single
+
+  application:
+    name: 'mq-spring-kafka-demo[qa]'
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://qa_app:3306/master_data?serverTimezone=UTC&useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: qa_app
+    password: 'qa_app'
+    druid:
+      # connection pool
+      filters: stat
+      initial-size: 10
+      min-idle: 10
+      max-active: 300
+      max-wait: 60000
+      min-evictable-idle-time-millis: 300000
+      #      max-evictable-idle-time-millis:
+      time-between-eviction-runs-millis: 60000
+      #      validation-query: 'SELECT 1'
+      #      validation-query-timeout: 1000
+      test-while-idle: false
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      # memory leak
+      async-init: false
+      remove-abandoned: false
+      remove-abandoned-timeout-millis: 180
+      log-abandoned: false
+
+logging:
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36}.%M() @%L - %msg%n'
+    level: DEBUG
+  level:
+    root: DEBUG
+    org:
+      springframework:
+        web: DEBUG
+    com:
+      alibaba:
+        druid: DEBUG
+
+#swagger:
+#  enabled: true
+#  basepackage: com.mq.kafka.demo.api
+#  title: mq-spring-kafka-demo api
+#  version: 1.0.0

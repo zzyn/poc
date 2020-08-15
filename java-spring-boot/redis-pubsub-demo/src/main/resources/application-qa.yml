@@ -1,0 +1,42 @@
+server:
+  port: 8080
+  error:
+    whitelabel:
+      enabled: false
+
+spring:
+  jackson:
+    time-zone: UTC
+  main:
+    web-application-type: servlet
+  http:
+    log-request-details: true
+  application:
+    name: redis-pubsub[qa]
+  redis:
+    database: 0
+    password:
+    lettuce:
+      pool:
+        max-active: 10000
+        max-wait: 3000ms
+        max-idle: 30
+        min-idle: 5
+    timeout: 5000ms
+    cluster:
+      nodes:
+        - 10.163.25.72:6379
+
+logging:
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36}.%M() @%L - %msg%n'
+    level: DEBUG
+  level:
+    root: DEBUG
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+
+info:
+  app:
+    name: "@project.name@"
+    description: "@project.description@"
+    version: "@project.version@"
+    spring-boot-version: "@project.parent.parent.version@"
+    encoding: "@project.build.sourceEncoding@"
+    java:
+      source: "@java.version@"
+      target: "@java.version@"
+
+springdoc:
+  definition:
+    info:
+      title: 'Auth Service'
+      version: '1.0.0'
+      description: 'Authentication and Authorization Service'
+      contact:
+        name: 'Zack Zou'
+        url: 'http://zack.zou.com'
+        email: 'zack.zou@ef.com'
+  swagger-ui:
+    display-operation-id: false
+    display-request-duration: true
+    max-displayed-tags: 3
+  packages-to-scan: com.edtech.openapi3.apis
+  show-actuator: true
+  api-docs:
+    enabled: true
+spring:
+  application:
+    admin:
+      enabled: true
+

@@ -1,0 +1,49 @@
+#csharp
+*.exe
+*.pdb
+*.dll
+*.cache
+*.txt
+*.Cache
+*.suo
+
+# Mac OSX
+.DS_Store
+
+### VSCode ###
+.vscode
+bin/
+# vscode extensions
+.metals/
+
+#java
+target/
+out/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+#.idea
+*.iws
+#*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+/build/
+
+
+### OpenClover
+.clover
+

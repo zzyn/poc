@@ -1,0 +1,19 @@
+#!groovy
+library identifier: 'jenkinssharedlib@tc/v3', retriever: modernSCM(
+  [$class       : 'GitSCMSource',
+   remote       : 'ssh://git@bitbucket.xxxxxx.cn:7999/elab/jenkinssharedlib.git',
+   credentialsId: '6f6f2853-94ac-4d4e-a714-fb0768580952'])
+
+sharedCIPipelineJava {
+  podTemplate = ktPodTemplate('java8': true)
+
+  service = 'mq-spring-kafka-demo'
+  imageRepo = 'pd/mq-spring-kafka-demo'
+  registries = ['AWS_CN':true, 'AWS_SG':false, 'TC_CN':false]
+
+  qaDeployJob  = "PD-CN-MQ-KAFKA-DEMO-QA-Deploy"
+  stgDeployJob = "PD-CN-MQ-KAFKA-DEMO-STG-Deploy"
+
+  teamsConnectorName = 'XXXX'
+  teamsConnectorUrl = 'https://outlook.office.com/webhook/a7f32c1d-faf5-4e70-9b87-c1553ce93d97@f0d1c6fd-dff0-486a-8e91-cfefefc7d98d/IncomingWebhook/badf7ebacd1e4fd8b120694383da1b1f/6034223b-343c-4dc8-8cd6-f71f41659b6c'
+}

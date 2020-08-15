@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  kt-master-data-kafka-svc:
+    image: e1-pd/mq-spring-kafka-demo:${IMAGE_TAG}
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
