@@ -1,14 +1,14 @@
 #!groovy
 library identifier: 'jenkinssharedlib@tc/v2', retriever: modernSCM(
   [$class       : 'GitSCMSource',
-   remote       : 'ssh://git@bitbucket.englishtown.cn:7999/elab/jenkinssharedlib.git',
+   remote       : 'ssh://git@bitbucket.xxxx.cn:7999/elab/jenkinssharedlib.git',
    credentialsId: '6eb8497e-6687-41e7-8a3c-1856eb98116e'])
 
 config = [
   service           : 'learning-plan',                   // docker-compose service for building image.
   imageRepo         : 'edtech-kt/learning-plan',
   teamsConnectorName: 'Platform Channel',
-  teamsConnectorUrl:  'https://outlook.office.com/webhook/a7f32c1d-faf5-4e70-9b87-c1553ce93d97@f0d1c6fd-dff0-486a-8e91-cfefefc7d98d/JenkinsCI/d1eecb1befc04b00af2dc4a275959ac8/6034223b-343c-4dc8-8cd6-f71f41659b6c'
+  teamsConnectorUrl:  'XXXX'
 ]
 
 pipeline {
