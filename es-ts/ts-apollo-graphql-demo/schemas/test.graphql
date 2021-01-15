@@ -1,0 +1,274 @@
+interface Node {
+  id: ID!
+}
+
+type Query {
+  queryStudentsResultSummary(
+    contentPath: String!
+    productModule: ProductModule!
+    studentIds: [String!]!
+  ): StudentsResultSummary!
+  queryContent(contentPath: String!, productModule: ProductModule!): PTContent!
+  queryStudentResult(
+    contentPath: String!
+    studentIds: [String!]!
+    productModule: ProductModule!
+  ): [StudentQuestionResult!]!
+}
+
+type Mutation {
+  migrateStudentsResult(
+    input: MigrateStudentsResultInput!
+  ): MigrateStudentsResultPayload!
+}
+
+input MigrateStudentsResultInput {
+  progressTestKey: String!
+  studentIds: [String!]!
+}
+
+type MigrateStudentsResultPayload {
+  studentsResultSummary: StudentsResultSummary
+  userErrors: [UserError!]!
+}
+
+enum ProductModule {
+  UNIT_QUIZ
+  MID_TERM_EXAM
+  FINAL_EXAM
+}
+
+type StudentsResultSummary implements Node {
+  id: ID!
+  contentPath: String!
+  productModule: ProductModule!
+  completedStudentCount: Int!
+  totalStudentCount: Int!
+  averageScore: Float
+  students: [Student!]!
+  partSummaries: [PartSummary!]!
+}
+
+type Student implements Node {
+  id: ID!
+  localName: String!
+  englishName: String!
+}
+
+type StudentQuestionResult implements Node {
+  id: ID!
+  #groupKey: String!
+  activityKey: String!
+  questionKey: String!
+  student: Student!
+  answer: [[String!]!]! # Not sure about the answer type, this is a MT-typed answer , may be nullable for the first phase
+  isCorrect: Boolean!
+}
+
+type PartSummary implements Node {
+  id: ID!
+  type: PartType!
+  averageScore: Float
+  totalScore: Float
+  questionSummaries: [QuestionSummary!]!
+}
+
+enum PartType {
+  PT_GRAMMAR
+  PT_VOCABULARY
+  PT_LISTENING
+  PT_READING
+  PT_WRITING
+  PT_SPEAKING
+}
+
+type QuestionSummary implements Node {
+  id: ID! #questionId
+  questionKey: String!
+  activityKey: String!
+  studentResults: [StudentQuestionResult!]!
+}
+
+type PTContent implements Node {
+  id: ID!
+  title: String!
+  duration: Int!
+  parts: [PTPart!]!
+}
+
+type PTPart { #may named PTSkill
+  type: PartType!
+  activities: [Activity!]!
+}
+
+type Activity {
+  id: string!
+  meta: ActivityMeta!
+  data: ActivityData!
+}
+
+type ActivityMeta {
+  contentId: string!
+  contentRevision: string!
+  schemaVersion: Int!
+}
+
+type ActivityData {
+  Key: String!
+  Title: String!
+  Type: String!
+  Body: ActivityBody!
+  Stimulus: [ActivityStimulus!]
+  Questions: [ActivityQuestion!]!
+}
+
+type ActivityBody {
+  instruction: ActivityBodyInstruction
+  mappings: [ActivityBodyMapping!]
+  tags: ActivityBodyTag
+  theme: ActivityBodyTheme
+}
+
+type ActivityBodyTheme {
+  backgroundImages: [ActivityMediaImage!]
+}
+
+type ActivityBodyTag {
+  key: String
+  skillType: String
+  ageGroupL: Int
+  ageGroupH: Int
+  activityType: String
+  activitySubType: String
+  cefrLevels: [String]
+  compassTags: [String]
+  secondaryCompassTags: [String]
+  totalCompassTags: [String]
+  learningFocus: String
+}
+
+type ActivityBodyInstruction {
+  texts: [ActivityBodyInstructionText!]!
+}
+
+type ActivityBodyInstructionText {
+  text: String!
+}
+
+type ActivityBodyMapping {
+  s: String!
+  q: String!
+}
+
+type ActivityStimulus {
+  key: String
+  body: ActivityStimulusBody
+}
+
+type ActivityStimulusBody {
+  item: ActivityStimulusBodyItem
+  tags: ActivityStimulusBodyTag
+}
+
+type ActivityStimulusTag {
+  ageGroupL: Int
+  ageGroupH: Int
+  cefrLevels: [String]
+  features: String
+}
+
+type ActivityStimulusBodyTag {
+  compassTags: [String]
+  secondaryCompassTags: [String]
+  text: ActivityStimulusTag
+  image: ActivityStimulusTag
+  audio: ActivityStimulusTag
+  video: ActivityStimulusTag
+}
+
+type ActivityStimulusBodyItem {
+  text: String
+  video: ActivityMediaVideo
+  image: ActivityMediaImage
+  audio: ActivityMediaAudio
+}
+
+type ActivityQuestion {
+  key: String!
+  body: ActivityQuestionBody!
+}
+
+type ActivityQuestionBody {
+  version: Int!
+  tags: [ActivityQuestionBodyTag]
+  tests: [ActivityQuestionBodyTest]!
+  answers: [[String]]!
+  options: [ActivityQuestionBodyOption]!
+  additionalLength: Int
+}
+
+type ActivityQuestionBodyTag {
+  compassTags: [String]
+  secondaryCompassTags: [String]
+  subSkillSet: String
+  vocabulary: [String]
+  rows: Int
+  cols: Int
+}
+
+type ActivityQuestionBodyTest {
+  text: String
+  videos: [ActivityMediaVideo]
+  image: ActivityMediaImage
+  audio: ActivityMediaAudio
+}
+
+interface ActivityMedia {
+  id: String!
+  url: String!
+  size: Int!
+  sha1: String!
+  mimeType: String!
+}
+
+type ActivityMediaVideo implements ActivityMedia {
+  id: String!
+  url: String!
+  size: Int!
+  sha1: String!
+  mimeType: String!
+  duration: Int!
+  language: String
+  thumbnails: [ActivityMediaImage!]
+}
+
+type ActivityMediaImage implements ActivityMedia {
+  id: String!
+  url: String!
+  size: Int!
+  sha1: String!
+  mimeType: String!
+  width: Int!
+  height: Int!
+}
+
+type ActivityMediaAudio implements ActivityMedia {
+  id: String!
+  url: String!
+  size: Int!
+  sha1: String!
+  mimeType: String!
+  duration: Int!
+}
+
+type ActivityQuestionBodyOption {
+  id: String!
+  text: String
+  audio: ActivityMediaAudio
+  image: ActivityMediaImage
+}
+
+type UserError {
+  message: String!
+  path: String!
+}
