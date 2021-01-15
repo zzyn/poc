@@ -1,0 +1,47 @@
+id: "dev"
+
+app:
+  name: "kt-migration-pt[dev]"
+  port: 4000
+  context:
+    enabled: false
+    path: "kmp"
+
+swagger:
+  enabled: true
+  path: "swagger"
+  title: "kt-migration-pt"
+  description: "migrate pt content and progress data"
+  version: "1.0.0"
+
+db:
+  enabled: true
+  type: "mysql"
+  host: "cnedtechpdmysqlstg.c4qxob5ca5uq.rds.cn-north-1.amazonaws.com.cn"
+  port: 3306
+  database: "kt_migration_pt_qa"
+  username: "kt_migration_pt_qa_app"
+  password: "zllQQMr4CTodVU4z"
+
+log:
+  enabled: true
+  levels:
+    - "log"
+    - "error"
+    - "warn"
+    - "debug"
+    - "verbose"
+
+sdk:
+  osp:
+    url: "https://internal-osp-stg.english1.cn"
+  content-repo:
+    url: "https://internal-ktsvc-qa.english1.cn/content-repo/"
+  general-test:
+    url: "https://internal-ktsvc-qa.english1.cn/kgt/"
+    accessToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIwY2IwZjZjMy0xNGU4LTQ0MWQtODZjZS0yZDA5M2JlNjk0YjQiLCJqdGkiOiIyNDU2MDkxYi0zYjE3LTRkNzgtOGJiYi01YWY2MjE1MTViNmQiLCJuYW1lIjoia3QtZ2VuZXJhbC10ZXN0LXN0cmVhbSIsImlhdCI6MTU2NTg5MDUxMywiZXhwIjoyNTY1ODkwNTEzfQ.ZTrfVxMCSupu4wUX5z_Pgk1bU_ZERSVp22S1CyymT-tQikHVTEtChKNzIG5bvjUsJl1er-X_aFgeNMdYIOr8b1w9c1WJpEq12nj7qEBdlrVxsJstt1UCtPRkq3p9mpj2b1axgRFz5MVblfdwWBu-XV8Tf5C9-1173VqcsBnN2mn1TY0VbwofMr388d5TMECvGdkB8kqE4sLYU4QTtafu0XEjZsLC5Oez6LHKGQWuZ_I81GeXoyX05EIq9eo8XLY9viPPDvyXQAO0_A-036rO_vJMPKryGUXjL681-r9Zgxh55BePiMUl-_ZkstDNkUUj_FuTSyUnfXRjIqsT3eK0Pg"
+    idToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiIwY2IwZjZjMy0xNGU4LTQ0MWQtODZjZS0yZDA5M2JlNjk0YjQiLCJqdGkiOiIyNDU2MDkxYi0zYjE3LTRkNzgtOGJiYi01YWY2MjE1MTViNmQiLCJuYW1lIjoia3QtZ2VuZXJhbC10ZXN0LXN0cmVhbSIsImlhdCI6MTU2NTg5MDUxMywiZXhwIjoyNTY1ODkwNTEzfQ.ZTrfVxMCSupu4wUX5z_Pgk1bU_ZERSVp22S1CyymT-tQikHVTEtChKNzIG5bvjUsJl1er-X_aFgeNMdYIOr8b1w9c1WJpEq12nj7qEBdlrVxsJstt1UCtPRkq3p9mpj2b1axgRFz5MVblfdwWBu-XV8Tf5C9-1173VqcsBnN2mn1TY0VbwofMr388d5TMECvGdkB8kqE4sLYU4QTtafu0XEjZsLC5Oez6LHKGQWuZ_I81GeXoyX05EIq9eo8XLY9viPPDvyXQAO0_A-036rO_vJMPKryGUXjL681-r9Zgxh55BePiMUl-_ZkstDNkUUj_FuTSyUnfXRjIqsT3eK0Pg"
+
+http:
+  timeout: 5000
+  maxRedirects: 5

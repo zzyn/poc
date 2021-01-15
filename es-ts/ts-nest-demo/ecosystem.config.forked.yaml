@@ -1,0 +1,16 @@
+apps:
+  - script: ./bundle.js
+    name: "ts-nest-demo"
+    instances: 1
+    exec_mode: fork
+    watch: true
+    autorestart: true
+    max_memory_restart: "1G"
+    env:
+      RUNTIME_NODE_ENV: development
+    env_qa:
+      RUNTIME_NODE_ENV: qa
+    env_stg:
+      RUNTIME_NODE_ENV: staging
+    env_prd:
+      RUNTIME_NODE_ENV: production

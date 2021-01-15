@@ -1,0 +1,78 @@
+def pipelineParams = [:]
+pipelineParams.imageRepo = "xxxx/ts-nest-demo"
+pipelineParams.jenkinsSlave = "CN-PD-BACKEND-CI02"
+pipelineParams.awsRegion = "cn-north-1"
+pipelineParams.ecrRegistry = "xxxx.dkr.ecr.cn-north-1.amazonaws.com.cn"
+pipelineParams.deployJob = "PD-CN-TS-NEST-DEMO-QA-DEPLOY"
+
+pipeline {
+    options {
+        disableConcurrentBuilds()
+        timeout(time: 60, unit: 'MINUTES')
+        buildDiscarder(logRotator(numToKeepStr: '20'))
+    }
+    triggers {
+        pollSCM('H/5 * * * *')
+    }
+    agent {
+        label pipelineParams.jenkinsSlave
+    }
+    parameters {
+        choice(name: 'BUILD_CAUSE', choices: ['commit', 'user'], description: 'Select [user] to start the pipeline even w/o any code change.')
+    }
+    environment {
+        GIT_COMMIT = sh(returnStdout: true, script: 'git rev-parse --short HEAD').trim().take(7)
+        GIT_BRANCH = sh(returnStdout: true, script: 'git symbolic-ref --short HEAD').trim()
+    }
+    stages {
+        stage('Pre-Build') {
+            steps {
+                script {
+                    // set the build display name
+                    currentBuild.displayName = "#${BUILD_ID}-${GIT_COMMIT}"
+
+                    // calculate version from branch
+                    APP_VERSION = 'unexpected'
+                    if (GIT_BRANCH == 'develop')
+                        APP_VERSION = "dev-${GIT_COMMIT}"
+                    else if (GIT_BRANCH.startsWith('release/'))
+                        APP_VERSION = GIT_BRANCH.replace('release/', '')
+                    else if (GIT_BRANCH.startsWith('feature/'))
+                        APP_VERSION = GIT_BRANCH.replace('feature/', 'feature_')
+                    else if (GIT_BRANCH == 'master')
+                        APP_VERSION = 'master'
+                }
+            }
+        }
+        stage('Docker-Build') {
+            steps {
+                echo "Workspace: ${WORKSPACE}"
+                sh "sh ${WORKSPACE}/docker-build.sh -i ${pipelineParams.imageRepo}"
+            }
+        }
+        stage('Docker-Push') {
+            steps {
+                script {
+                    def remoteImage = "${pipelineParams.ecrRegistry}/${pipelineParams.imageRepo}:${APP_VERSION}"
+                    sh('#!/bin/sh -e\n' + "\$(aws ecr get-login --no-include-email --region ${pipelineParams.awsRegion})")
+                    sh """
+                        docker tag ${pipelineParams.imageRepo} $remoteImage
+                        docker push $remoteImage
+                        docker rmi $remoteImage
+                       """
+                }
+            }
+        }
+        stage('Trigger Deploy') {
+            steps {
+                script {
+                    if(pipelineParams.deployJob != '') {
+                        build job: pipelineParams.deployJob, parameters: [
+                                [$class: 'StringParameterValue', name: 'IMAGE_TAG', value: APP_VERSION]
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

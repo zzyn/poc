@@ -1,0 +1,12 @@
+{
+  "extends": "./config/tsconfig.base.json",
+  "compilerOptions": {
+    "lib": ["es2019", "dom", "esnext.asynciterable"],
+    "target": "es2019",
+    "outDir": "./build",
+    "rootDir": "./src",
+    "strictPropertyInitialization": false
+  },
+  "include": ["src"],
+  "exclude": ["**/node_modules", "build", "dist", "src/e2e", "**/*spec.ts"]
+}
