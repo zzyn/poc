@@ -136,9 +136,9 @@ export RUNNING_NODE_ENV=qa
 ## Publish npm package to Nexus3
 
 ```
-npm login –-registry=https://e1nexus.english1.com/repository/npm-hosted/
+npm login –-registry=https://127.0.0.1/repository/npm-hosted/
 npm config get registry
-npm config set registry https://e1nexus.english1.com/repository/npm-hosted/
+npm config set registry https://127.0.0.1/repository/npm-hosted/
 npm config set registry https://registry.npmjs.org/
 npm publish packages/validators
 ```
