@@ -1,0 +1,8 @@
+{
+  "timestamp": "2019-09-16T03:58:02.380+0000",
+  "path": "/api/errors/409",
+  "status": 409,
+  "error": "Conflict",
+  "message": "Practice is not unlocked.",
+  "subStatus": 2201
+}

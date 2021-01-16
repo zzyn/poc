@@ -1,0 +1,7 @@
+{
+  "timestamp": 1234567890,
+  "path": "/api/errors/400/default",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Message 1"
+}

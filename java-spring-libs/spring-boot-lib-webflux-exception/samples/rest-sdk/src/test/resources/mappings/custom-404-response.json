@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/errors/404"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "application/json;charset=UTF-8"
+    },
+    "jsonBody": {
+      "timestamp": "2019-09-17T14:30:45.821+0000",
+      "path": "/api/errors/404",
+      "status": 404,
+      "error": "Not Found",
+      "message": "CourseNode (id=15) not found.",
+      "subStatus": 10001
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/errors/403"
+  },
+  "response": {
+    "status": 403,
+    "headers": {
+      "Content-Type": "application/json;charset=UTF-8"
+    },
+    "jsonBody": {
+      "timestamp": "2019-09-17T14:27:53.394+0000",
+      "path": "/api/errors/403",
+      "status": 403,
+      "error": "Forbidden",
+      "message": "Subscription is expired.",
+      "subStatus": 40302
+    }
+  }
+}

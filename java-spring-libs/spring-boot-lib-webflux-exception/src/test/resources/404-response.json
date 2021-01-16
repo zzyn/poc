@@ -1,0 +1,8 @@
+{
+  "timestamp": "2019-09-16T03:58:02.380+0000",
+  "path": "/api/errors/404",
+  "status": 404,
+  "error": "Not Found",
+  "message": "CourseNode (id=1001) is not found.",
+  "subStatus": 10001
+}

@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.spring.libs</groupId>
+  <artifactId>spring-boot-flux-exception</artifactId>
+  <version>1.0.0</version>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.2.2.RELEASE</version>
+    <relativePath /> <!-- lookup parent from repository -->
+  </parent>
+
+  <properties>
+    <java.version>11</java.version>
+    <!-- dependencies versions -->
+    <io.jsonwebtoken.version>0.10.7</io.jsonwebtoken.version>
+    <org.bouncycastle.version>1.62</org.bouncycastle.version>
+    <jacoco.version>0.8.4</jacoco.version>
+    <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+    <sonar-maven-plugin.version>3.6.0.1398</sonar-maven-plugin.version>
+    <!-- nexus3 -->
+    <nexus3.baseUrl>http://10.178.88.80</nexus3.baseUrl>
+    <!-- test -->
+    <test.reports.dir>target/test-reports</test.reports.dir>
+    <test.exclusion.files>**/entities/**,**/dto/**,**/po/**,**/vo/**</test.exclusion.files>
+    <!-- jacoco -->
+    <jacoco.dataFile>target/jacoco.exec</jacoco.dataFile>
+    <jacoco.outputDirectory>target/coverage-report</jacoco.outputDirectory>
+    <jacoco.line.coverage>0%</jacoco.line.coverage>
+    <jacoco.branch.coverage>0%</jacoco.branch.coverage>
+    <!-- sonar -->
+    <sonar.host.url>http://10.178.88.76</sonar.host.url>
+    <sonar.login>091dfdc1711b1aee3dd2cc0718611dc517c2d8f8</sonar.login>
+    <sonar.scm.disabled>true</sonar.scm.disabled>
+    <sonar.language>java</sonar.language>
+    <sonar.dynamicAnalysis>reuseReports</sonar.dynamicAnalysis>
+    <sonar.java.coveragePlugin>jacoco</sonar.java.coveragePlugin>
+    <sonar.coverage.jacoco.xmlReportPaths>${jacoco.outputDirectory}/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+    <sonar.exclusions>${test.exclusion.files}</sonar.exclusions>
+    <sonar.coverage.exclusions>${test.exclusion.files}</sonar.coverage.exclusions>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>${maven-release-plugin.version}</version>
+      </plugin>
+      <!-- unit test -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+      <!-- integration test -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-failsafe-plugin</artifactId>
+      </plugin>
+      <!-- code coverage -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+      </plugin>
+      <!-- sonarqube -->
+      <plugin>
+        <groupId>org.sonarsource.scanner.maven</groupId>
+        <artifactId>sonar-maven-plugin</artifactId>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <!-- unit test -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <reportsDirectory>${test.reports.dir}</reportsDirectory>
+          </configuration>
+        </plugin>
+        <!-- integration test -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>integration-test</goal>
+                <goal>verify</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <reportsDirectory>${test.reports.dir}</reportsDirectory>
+          </configuration>
+        </plugin>
+        <!-- code coverage -->
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${jacoco.version}</version>
+          <configuration>
+            <dataFile>${jacoco.dataFile}</dataFile>
+            <outputDirectory>${jacoco.outputDirectory}</outputDirectory>
+            <excludes>
+              ${test.exclusion.files}
+            </excludes>
+          </configuration>
+          <executions>
+            <execution>
+              <id>jacoco-instrument</id>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>generate-report</id>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>check-coverage</id>
+              <phase>verify</phase>
+              <goals>
+                <goal>check</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <rule>
+                    <element>BUNDLE</element>
+                    <limits>
+                      <limit>
+                        <counter>LINE</counter>
+                        <value>COVEREDRATIO</value>
+                        <minimum>${jacoco.line.coverage}</minimum>
+                      </limit>
+                      <limit>
+                        <counter>BRANCH</counter>
+                        <value>COVEREDRATIO</value>
+                        <minimum>${jacoco.branch.coverage}</minimum>
+                      </limit>
+                      <limit>
+                        <counter>CLASS</counter>
+                        <value>MISSEDCOUNT</value>
+                        <minimum>0</minimum>
+                      </limit>
+                    </limits>
+                  </rule>
+                </rules>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <!-- sonarqube -->
+        <plugin>
+          <groupId>org.sonarsource.scanner.maven</groupId>
+          <artifactId>sonar-maven-plugin</artifactId>
+          <version>${sonar-maven-plugin.version}</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <distributionManagement>
+    <repository>
+      <id>kt-nexus3-release</id>
+      <url>${nexus3.baseUrl}/repository/maven-releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>kt-nexus3-snapshot</id>
+      <url>${nexus3.baseUrl}/repository/maven-snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>kt-nexus3</id>
+      <url>${nexus3.baseUrl}/repository/maven-public/</url>
+    </repository>
+  </repositories>
+
+  <pluginRepositories>
+    <pluginRepository>
+      <id>kt-nexus3</id>
+      <url>${nexus3.baseUrl}/repository/maven-public/</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+</project>

@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/errors/nonexist"
+  },
+  "response": {
+    "status": 404,
+    "headers": {
+      "Content-Type": "application/json;charset=UTF-8"
+    },
+    "jsonBody": {
+      "timestamp": "2019-09-17T14:29:14.759+0000",
+      "path": "/api/errors/nonexists",
+      "status": 404,
+      "error": "Not Found",
+      "message": null
+    }
+  }
+}

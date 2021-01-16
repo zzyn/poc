@@ -1,0 +1,8 @@
+{
+  "timestamp": "2019-09-16T03:58:02.380+0000",
+  "path": "/api/errors/400/default",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Message 2",
+  "subStatus": 1001
+}

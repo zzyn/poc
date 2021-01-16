@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/errors/400/default"
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json;charset=UTF-8"
+    },
+    "jsonBody": {
+      "timestamp": "2019-09-17T14:17:33.146+0000",
+      "path": "/api/errors/400/default",
+      "status": 400,
+      "error": "Bad Request",
+      "message": "Type mismatch."
+    }
+  }
+}

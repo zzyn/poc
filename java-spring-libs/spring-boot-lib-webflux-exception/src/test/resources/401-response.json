@@ -1,0 +1,8 @@
+{
+  "timestamp": "2019-09-16T03:58:02.380+0000",
+  "path": "/api/errors/401",
+  "status": 401,
+  "error": "Unauthorized",
+  "message": "Invalid Account.",
+  "subStatus": 40101
+}

@@ -1,0 +1,35 @@
+{
+  "timestamp": "2019-09-16T03:58:02.380+0000",
+  "path": "/api/errors/400/default",
+  "status": 400,
+  "error": "Bad Request",
+  "message": "Message 2",
+  "errors": [
+    {
+      "codes": [
+        "BusinessEnumMessage.planRequestModel.productId",
+        "BusinessEnumMessage.productId",
+        "BusinessEnumMessage.int",
+        "BusinessEnumMessage"
+      ],
+      "arguments": [
+        {
+          "codes": [
+            "planRequestModel.productId",
+            "productId"
+          ],
+          "arguments": null,
+          "defaultMessage": "productId",
+          "code": "productId"
+        },
+        "com.ef.edtech.platform.plansvc.domain.model.businessenum.ProductIdEnum"
+      ],
+      "defaultMessage": "4402",
+      "objectName": "planRequestModel",
+      "field": "productId",
+      "rejectedValue": 3,
+      "bindingFailure": false,
+      "code": "BusinessEnumMessage"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/errors/501"
+  },
+  "response": {
+    "status": 501,
+    "headers": {
+      "Content-Type": "application/json;charset=UTF-8"
+    },
+    "jsonBody": {
+      "timestamp": "2019-09-18T07:45:07.119+0000",
+      "path": "/api/errors/501",
+      "status": 501,
+      "error": "Not Implemented",
+      "message": null
+    }
+  }
+}

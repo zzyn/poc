@@ -1,0 +1,32 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/api/errors/400/custom"
+  },
+  "response": {
+    "status": 400,
+    "headers": {
+      "Content-Type": "application/json;charset=UTF-8"
+    },
+    "jsonBody": {
+      "timestamp": "2019-09-17T14:18:30.949+0000",
+      "path": "/api/errors/400/custom",
+      "status": 400,
+      "error": "Bad Request",
+      "message": "Input parameters invalid.",
+      "subStatus": 1001,
+      "errors": [
+        {
+          "rejectValue": "abcdef",
+          "field": "studentId",
+          "message": "should be integer"
+        },
+        {
+          "rejectValue": "489d8bd6-347c-4509-a963-a2b47cafef75",
+          "field": "planSystemKey",
+          "message": "should be time UUID"
+        }
+      ]
+    }
+  }
+}

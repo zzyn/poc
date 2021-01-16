@@ -1,0 +1,8 @@
+{
+  "timestamp": "2019-09-16T03:58:02.380+0000",
+  "path": "/api/errors/403",
+  "status": 403,
+  "error": "Forbidden",
+  "message": "Subscription is expired.",
+  "subStatus": 40302
+}

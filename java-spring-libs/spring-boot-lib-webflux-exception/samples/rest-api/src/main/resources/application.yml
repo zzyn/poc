@@ -1,0 +1,6 @@
+server:
+  error:
+    include-stacktrace: never
+logging:
+  level:
+    root: info
