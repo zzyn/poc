@@ -1,0 +1,32 @@
+[
+  {
+    "type": "CORE",
+    "activated": true,
+    "program": "HFV3Plus",
+    "state": "INPROGRESS"
+  },
+  {
+    "type": "OTHER",
+    "activated": false,
+    "program": "MTV1",
+    "levels": [
+      {
+        "level": "DEFAULT",
+        "scope": "STANDARD",
+        "state": "INPROGRESS"
+      }
+    ]
+  },
+  {
+    "type": "OTHER",
+    "activated": false,
+    "program": "GPV1",
+    "levels": [
+      {
+        "level": "DEFAULT",
+        "scope": "STANDARD",
+        "state": "INPROGRESS"
+      }
+    ]
+  }
+]

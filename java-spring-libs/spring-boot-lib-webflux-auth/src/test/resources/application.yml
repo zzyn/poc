@@ -1,0 +1,4 @@
+kt:
+  security:
+    authorization-uri: http://auth2.local
+    public-key: "keys/rsa/public_key.pem"

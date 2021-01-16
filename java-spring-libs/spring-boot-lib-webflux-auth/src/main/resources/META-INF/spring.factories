@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.spring.libs.flux.auth.config.SecurityAutoConfiguration
