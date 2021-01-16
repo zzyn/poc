@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archetype-descriptor
+        xsi:schemaLocation="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 http://maven.apache.org/xsd/archetype-descriptor-1.0.0.xsd
+http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0 "
+        name="platform-archetype"
+        xmlns="http://maven.apache.org/plugins/maven-archetype-plugin/archetype-descriptor/1.0.0"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <requiredProperties>
+        <requiredProperty key="entity">
+        </requiredProperty>
+        <requiredProperty key="entity_camel">
+        </requiredProperty>
+    </requiredProperties>
+    <modules>
+        <module id="${rootArtifactId}-app" dir="__rootArtifactId__-app" name="${rootArtifactId}-app">
+            <fileSets>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/main/resources</directory>
+                </fileSet>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/test/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/test/resources</directory>
+                </fileSet>
+            </fileSets>
+        </module>
+        <module id="${rootArtifactId}-contract" dir="__rootArtifactId__-contract" name="${rootArtifactId}-contract">
+            <fileSets>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/main/resources</directory>
+                </fileSet>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/test/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/test/resources</directory>
+                </fileSet>
+            </fileSets>
+        </module>
+        <module id="${rootArtifactId}-core" dir="__rootArtifactId__-core" name="${rootArtifactId}-core">
+            <fileSets>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/main/resources</directory>
+                </fileSet>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/test/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/test/resources</directory>
+                </fileSet>
+            </fileSets>
+        </module>
+        <module id="${rootArtifactId}-coverage" dir="__rootArtifactId__-coverage" name="${rootArtifactId}-coverage">
+            <fileSets>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>target</directory>
+                    <includes>
+                        <include>readme.md</include>
+                    </includes>
+                </fileSet>
+            </fileSets>
+        </module>
+        <module id="${rootArtifactId}-docker" dir="__rootArtifactId__-docker" name="${rootArtifactId}-docker">
+            <fileSets>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/main/docker</directory>
+                    <includes>
+                        <include>**</include>
+                    </includes>
+                </fileSet>
+            </fileSets>
+        </module>
+        <module id="${rootArtifactId}-domain" dir="__rootArtifactId__-domain" name="${rootArtifactId}-domain">
+            <fileSets>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/main/resources</directory>
+                </fileSet>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/test/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/test/resources</directory>
+                </fileSet>
+            </fileSets>
+        </module>
+        <module id="${rootArtifactId}-domain-impl" dir="__rootArtifactId__-domain-impl" name="${rootArtifactId}-domain-impl">
+            <fileSets>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/main/resources</directory>
+                </fileSet>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/test/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/test/resources</directory>
+                </fileSet>
+            </fileSets>
+        </module>
+        <module id="${rootArtifactId}-repository" dir="__rootArtifactId__-repository" name="${rootArtifactId}-repository">
+            <fileSets>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/main/resources</directory>
+                </fileSet>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/test/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/test/resources</directory>
+                </fileSet>
+            </fileSets>
+        </module>
+        <module id="${rootArtifactId}-repository-impl" dir="__rootArtifactId__-repository-impl" name="${rootArtifactId}-repository-impl">
+            <fileSets>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/main/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/main/resources</directory>
+                </fileSet>
+                <fileSet packaged="true" filtered="true" encoding="UTF-8">
+                    <directory>src/test/java</directory>
+                </fileSet>
+                <fileSet packaged="false" filtered="true" encoding="UTF-8">
+                    <directory>src/test/resources</directory>
+                </fileSet>
+            </fileSets>
+        </module>
+    </modules>
+    <fileSets>
+        <fileSet encoding="UTF-8" filtered="true">
+            <directory></directory>
+            <includes>
+                <include>ci/build.prd.cn.pipeline</include>
+                <include>ci/build.stg.cn.pipeline</include>
+                <include>ci/build.qa.cn.pipeline</include>
+                <include>ci/build.uat.cn.pipeline</include>
+                <include>.dockerignore</include>
+                <include>.gitignore</include>
+                <include>docker-build.sh</include>
+                <include>Dockerfile</include>
+                <include>README.md</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</archetype-descriptor>
