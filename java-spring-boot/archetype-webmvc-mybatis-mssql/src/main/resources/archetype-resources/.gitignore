@@ -1,0 +1,25 @@
+
+# IntelliJ
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Eclipse
+.classpath
+.project
+.factorypath
+.settings/
+
+# Vert.x
+.vertx/
+
+# Maven
+target/
+
+# Gradle
+.gradle/
+build/
+
+# OS X
+.DS_Store

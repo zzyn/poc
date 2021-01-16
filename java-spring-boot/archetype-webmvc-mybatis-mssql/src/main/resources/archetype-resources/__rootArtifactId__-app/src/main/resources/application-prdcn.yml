@@ -1,0 +1,188 @@
+info:
+  app:
+    name: "@project.name@"
+    description: "@project.description@"
+    version: "@project.version@"
+    spring-boot-version: "@project.parent.parent.version@"
+    encoding: "@project.build.sourceEncoding@"
+    java:
+      source: "@java.version@"
+      target: "@java.version@"
+
+server:
+  port: 80
+  error:
+    whitelabel:
+      enabled: false
+    include-exception: true
+    include-stacktrace: always
+  tomcat:
+    max-threads: 250
+    max-connections: 10000
+    min-spare-threads: 20
+
+management:
+  server:
+    port: 80
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: '*'
+  endpoint:
+    shutdown:
+      enabled: false
+  info:
+    defaults:
+      enabled: true
+    git:
+      mode: full
+
+spring:
+  main:
+    web-application-type: servlet
+  http:
+    log-request-details: true
+  application:
+    name: SVC API (PRDCN)
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
+    url: jdbc:sqlserver://127.0.0.1:1434;DatabaseName=ABC
+    username: ABC
+    password: 'ABC'
+    druid:
+      # connection pool
+      filters: stat
+      initial-size: 10
+      min-idle: 10
+      max-active: 300
+      max-wait: 60000
+      min-evictable-idle-time-millis: 300000
+      # max-evictable-idle-time-millis:
+      time-between-eviction-runs-millis: 60000
+      # validation-query: 'SELECT 1'
+      # validation-query-timeout: 1000
+      test-while-idle: false
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      # memory leak
+      async-init: false
+      remove-abandoned: false
+      remove-abandoned-timeout-millis: 180
+      log-abandoned: false
+      moniter:
+        stat-view-servlet:
+          enabled: true
+          login-username: admin
+          login-password: 'admin123!'
+          url-pattern: /druid/*
+          reset-enable: true
+        web-stat-filter:
+          enabled: true
+          url-pattern: /api/*
+          profile-enable: true
+          session-stat-enable: true
+        filter:
+          stat:
+            enabled: true
+            db-type: sqlserver
+            log-slow-sql: true
+            slow-sql-millis: 2000
+  redis:
+    master: 127.0.0.1:6379
+    slaves:
+      - 127.0.0.1:63791
+    database: 4
+    password:
+    lettuce:
+      pool:
+        max-active: 10000
+        max-wait: 5000
+        max-idle: 30
+        min-idle: 5
+    timeout: 5000
+    app-ttl: 43200
+    app-enabled: true
+
+logging:
+  pattern:
+    console: '%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36}.%M() @%L - %msg%n'
+    level: DEBUG
+  level:
+    root: DEBUG
+    org:
+      springframework:
+        web: DEBUG
+      mybatis: DEBUG
+    com:
+      alibaba:
+        druid: DEBUG
+
+mybatis:
+  typeAliasesPackage: ${groupId}.repository.entity
+  # mapperLocations: classpath:mapper/*.xml
+  # type-handlers-package: ${groupId}.app.
+  configuration:
+      cacheEnabled: true
+      lazyLoadingEnabled: true
+      aggressiveLazyLoading: true
+      # map-underscore-to-camel-case: true
+      # default-fetch-size: 100
+      # default-statement-timeout: 30
+
+azure:
+  application-insights:
+    instrumentation-key: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    enabled: true
+    web:
+      enabled: true
+      enable-w3-c: false
+      enable-w3-c-backcompat-mode: false
+    logger:
+      type: console
+      level: trace
+    quick-pulse:
+      enabled: true
+    default-modules:
+      WebOperationIdTelemetryInitializer:
+        enabled: true
+      WebOperationNameTelemetryInitializer:
+        enabled: true
+      WebRequestTrackingTelemetryModule:
+        enabled: true
+      WebPerformanceCounterModule:
+        enabled: false
+      WebSessionTelemetryInitializer:
+        enabled: true
+      WebSessionTrackingTelemetryModule:
+        enabled: true
+      WebUserTelemetryInitializer:
+        enabled: true
+      WebUserTrackingTelemetryModule:
+        enabled: true
+      WebUserAgentTelemetryInitializer:
+        enabled: true
+      ProcessPerformanceCountersModule:
+        enabled: false
+    heart-beat:
+      enabled: false
+    performance-counter:
+      collection-frequency-in-seconds: 600
+    telemetry-processor:
+      sampling:
+        enabled: true
+
+client:
+  connection-timeout: 10000
+
+jwt:
+  private-key: 'keys/rsa/private_key.pem'
+  public-key: 'keys/rsa/public_key.pem'
+
+
+
+
+
