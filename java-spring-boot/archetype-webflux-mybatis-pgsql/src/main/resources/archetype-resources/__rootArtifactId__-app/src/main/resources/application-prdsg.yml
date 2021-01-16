@@ -40,16 +40,16 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://cnedtechpdpgsdb01qa.c4qxob5ca5uq.rds.cn-north-1.amazonaws.com.cn:5432/mt_content_qa
-    username: mocktestqa
-    password: 'efef@123'
+    url: jdbc:postgresql://127.0.0.1:5432/xxxx
+    username: xxxx
+    password: 'xxxx'
     hikari:
       maximum-pool-size: 50
       minimum-idle: 5
   redis:
-    master: sge1prdpdredis1-001.1hse6k.0001.apse1.cache.amazonaws.com:6379
+    master: 127.0.0.1:6379
     slaves:
-      - sge1prdpdredis1-002.1hse6k.0001.apse1.cache.amazonaws.com:6379
+      - 127.0.0.1:63791
     database: 0
     password:
     lettuce:
