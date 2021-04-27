@@ -30,7 +30,6 @@
 | component test    | src/test/{basepackage}/cases/component    | test from endpoint to dataprovider with real IO   |
 
 ## Question
-- the original homework is Orders_Simulation_Homework_for_China.pdf
 - you can read the alternative version: question.md at the same folder
 
 ## Design
