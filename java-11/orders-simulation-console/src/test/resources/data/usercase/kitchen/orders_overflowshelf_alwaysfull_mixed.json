@@ -1,0 +1,107 @@
+[
+  {
+    "id": "00000000-0000-0000-0000-000000000011",
+    "name": "Banana Split",
+    "temp": "frozen",
+    "shelfLife": 20,
+    "decayRate": 0.63
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000012",
+    "name": "McFlury",
+    "temp": "frozen",
+    "shelfLife": 375,
+    "decayRate": 0.4
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000013",
+    "name": "Acai Bowl",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000014",
+    "name": "Yogurt",
+    "temp": "cold",
+    "shelfLife": 263,
+    "decayRate": 0.37
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000015",
+    "name": "Chocolate Gelato",
+    "temp": "frozen",
+    "shelfLife": 300,
+    "decayRate": 0.61
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000016",
+    "name": "Cobb Salad",
+    "temp": "cold",
+    "shelfLife": 269,
+    "decayRate": 0.19
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000017",
+    "name": "Pad See Ew",
+    "temp": "hot",
+    "shelfLife": 210,
+    "decayRate": 0.72
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000018",
+    "name": "Chunky Monkey",
+    "temp": "frozen",
+    "shelfLife": 210,
+    "decayRate": 0.54
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000019",
+    "name": "Beef Stew",
+    "temp": "hot",
+    "shelfLife": 206,
+    "decayRate": 0.69
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000020",
+    "name": "Cheese",
+    "temp": "cold",
+    "shelfLife": 255,
+    "decayRate": 0.2
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000021",
+    "name": "Spinach Omelet",
+    "temp": "hot",
+    "shelfLife": 230,
+    "decayRate": 0.63
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000022",
+    "name": "Beef Hash",
+    "temp": "hot",
+    "shelfLife": 30,
+    "decayRate": 0.74
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000023",
+    "name": "Pork Chop",
+    "temp": "hot",
+    "shelfLife": 200,
+    "decayRate": 0.7
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000024",
+    "name": "MeatLoaf",
+    "temp": "hot",
+    "shelfLife": 213,
+    "decayRate": 0.5
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000025",
+    "name": "Vegan Pizza",
+    "temp": "hot",
+    "shelfLife": 200,
+    "decayRate": 0.7
+  }
+]

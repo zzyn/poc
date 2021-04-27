@@ -1,0 +1,23 @@
+[
+  {
+    "id": "00000000-0000-0000-0000-000000000001",
+    "name": "Acai Bowl 1",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000002",
+    "name": "Acai Bowl 2",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000003",
+    "name": "Acai Bowl 3",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  }
+]

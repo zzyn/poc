@@ -1,0 +1,107 @@
+[
+  {
+    "id": "00000000-0000-0000-0000-000000000011",
+    "name": "Acai Bowl 11",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000012",
+    "name": "Acai Bowl 12",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000013",
+    "name": "Acai Bowl 13",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000014",
+    "name": "Acai Bowl 14",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000015",
+    "name": "Acai Bowl 15",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000016",
+    "name": "Acai Bowl 16",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000017",
+    "name": "Acai Bowl 17",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000018",
+    "name": "Acai Bowl 18",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000019",
+    "name": "Acai Bowl 19",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000020",
+    "name": "Acai Bowl 20",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000021",
+    "name": "Acai Bowl 21",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000022",
+    "name": "Acai Bowl 22",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000023",
+    "name": "Acai Bowl 23",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000024",
+    "name": "Acai Bowl 24",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  },
+  {
+    "id": "00000000-0000-0000-0000-000000000025",
+    "name": "Acai Bowl 24",
+    "temp": "cold",
+    "shelfLife": 249,
+    "decayRate": 0.3
+  }
+]
